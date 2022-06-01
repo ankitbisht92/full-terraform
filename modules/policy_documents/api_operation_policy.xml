@@ -1,0 +1,80 @@
+<policies>
+  <inbound>
+    <base />
+    
+    %{ if config.backend_url != null}  
+      <set-backend-service base-url="${config.backend_url}" />
+    %{ endif ~}
+    %{ if config.backend_id != null} 
+      <set-backend-service backend-id="${config.backend_id}" />
+    %{ endif ~}
+
+    %{ if config.enable_cors }
+      <cors allow-credentials="${config.allow-credentials}">
+        %{ if length(config.cors_allowed_origins) > 0 }
+          <allowed-origins>
+            %{ for origin in config.cors_allowed_origins }
+              %{ if origin != null && origin != "" }
+                <origin>${ origin }</origin>
+              %{ endif ~}
+            %{ endfor ~}
+          </allowed-origins>
+        %{ endif ~}
+
+        %{ if config.cors_allowed_method != null }
+          <allowed-methods>
+            <method>${ config.cors_allowed_method }</method>
+          </allowed-methods>
+        %{ endif ~}
+
+        %{ if length(config.cors_allowed_headers) > 0 }
+          <allowed-headers>
+            %{ for header in config.cors_allowed_headers }
+              <header>${ header }</header>
+            %{ endfor ~}
+          </allowed-headers>
+        %{ endif ~}
+
+        %{ if config.cors_exposed_headers != null }
+          <expose-headers>
+            <header>${ config.cors_exposed_headers }</header>
+          </expose-headers>
+        %{ endif ~}
+      </cors>
+    %{ endif ~}
+
+    %{ if length(config.headers) > 0 }
+      %{ for header in config.headers  }
+        <set-header name="${header.name}" exists-action="${header.exists_action}">
+          <value>${ header.value }</value>
+        </set-header>
+      %{ endfor ~}
+    %{ endif ~}
+
+    %{ if config.rewrite_url != null && config.rewrite_url != ""}
+      <rewrite-uri template="${ config.rewrite_url }"/>
+    %{ endif ~}
+
+  </inbound>
+  <backend>
+    <base />
+  </backend>
+  <outbound>
+    %{ if length(config.outbound_headers) > 0 }
+      %{ for outbound_header in config.outbound_headers  }
+        <set-header name="${outbound_header.name}" exists-action="${outbound_header.exists_action}">
+          <value>${ outbound_header.value }</value>
+        </set-header>
+      %{ endfor ~}
+    %{ endif ~}  
+    <set-header name="X-Powered-By" exists-action="delete" />
+    <set-header name="Strict-Transport-Security" exists-action="override">
+      <!-- Recommended max-age is 2 years, which is 63072000 seconds. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security  -->
+      <value>max-age=63072000; includeSubDomains; preload</value>
+    </set-header>
+    <base />
+  </outbound>
+  <on-error>
+    <base />
+  </on-error>
+</policies >

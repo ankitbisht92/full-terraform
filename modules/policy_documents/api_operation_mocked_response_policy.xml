@@ -1,0 +1,12 @@
+<policies>
+    <inbound>
+        <mock-response status-code="200" content-type="application/json"/>
+    </inbound>
+    <outbound>
+        <set-header name="Strict-Transport-Security" exists-action="override">
+        <!-- Recommended max-age is 2 years, which is 63072000 seconds. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security  -->
+            <value>max-age=63072000; includeSubDomains; preload</value>
+        </set-header>
+        <base />
+    </outbound>
+</policies>

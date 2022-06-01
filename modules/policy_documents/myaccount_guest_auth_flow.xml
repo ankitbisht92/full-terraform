@@ -1,0 +1,134 @@
+<policies>
+    <inbound>
+        <base />
+        <!--Allow max 10K body content-->
+        <validate-content unspecified-content-type-action="ignore" max-size="10240" size-exceeded-action="prevent" errors-variable-name="requestBodyValidation" />
+        <!-- check Authorization header for access token-->
+        <cache-lookup-value key="cached-guest-username" variable-name="guest-username" />
+        <cache-lookup-value key="cached-guest-password" variable-name="guest-password" />
+        <wait for="all">
+            <choose>
+                <when condition="@(!context.Variables.ContainsKey("guest-username"))">
+                    <!-- call  Key Vault  and retrieve username -->
+                    <send-request mode="new" response-variable-name="guest-username-json" timeout="20" ignore-error="false">
+                        <set-url>{{keyvault-baseurl}}secrets/myaccount-guest-username/?api-version=7.0</set-url>
+                        <set-method>GET</set-method>
+                        <authentication-managed-identity resource="https://vault.azure.net" />
+                    </send-request>
+                    <set-variable name="guest-username" value="@{
+        return new JObject(((IResponse)context.Variables["guest-username-json"]).Body.As<JObject>())["value"].ToString();
+        }" />
+                    <!-- Store result in cache -->
+                    <cache-store-value key="cached-guest-username" value="@(context.Variables.GetValueOrDefault<string>("guest-username"))" duration="{{keyvault-secret-cache-duration}}" />
+                </when>
+            </choose>
+            <choose>
+                <when condition="@(!context.Variables.ContainsKey("guest-password"))">
+                    <!-- call  Key Vault  and retrieve password -->
+                    <send-request mode="new" response-variable-name="guest-password-json" timeout="20" ignore-error="false">
+                        <set-url>{{keyvault-baseurl}}secrets/myaccount-guest-password/?api-version=7.0</set-url>
+                        <set-method>GET</set-method>
+                        <authentication-managed-identity resource="https://vault.azure.net" />
+                    </send-request>
+                    <set-variable name="guest-password" value="@{
+        return new JObject(((IResponse)context.Variables["guest-password-json"]).Body.As<JObject>())["value"].ToString();
+        }" />
+                    <!-- Store result in cache -->
+                    <cache-store-value key="cached-guest-password" value="@(context.Variables.GetValueOrDefault<string>("guest-password"))" duration="{{keyvault-secret-cache-duration}}" />
+                </when>
+            </choose>
+        </wait>
+        <send-request mode="new" response-variable-name="online-access-token-json" timeout="20" ignore-error="false">
+            <set-url>${ config.auth_url }</set-url>
+            <set-method>POST</set-method>
+            <set-header name="content-type" exists-action="override">
+                <value>application/json</value>
+            </set-header>
+            <set-body>@($"{{'apiClaimType': 0,'userName': '{context.Variables.GetValueOrDefault<string>("guest-username")}', 'password': '{context.Variables.GetValueOrDefault<string>("guest-password")}', 'tokenGenerationKey': ''}}")</set-body>
+            </send-request>
+
+            <choose>
+                <when condition="@(((IResponse)context.Variables["online-access-token-json"]).StatusCode != 200)">
+                    <return-response>
+                        <set-status code="400" reason="Bad Request" />
+                    </return-response>
+                </when>
+            </choose>
+            <set-variable name="guest-access-token" value="@{
+                    return new JObject(((IResponse)context.Variables["online-access-token-json"]).Body.As<JObject>())["Data"]["accessToken"].ToString();
+        }" />
+            <set-header name="onlineapitoken" exists-action="override">
+                <value>@(context.Variables.GetValueOrDefault<string>("guest-access-token"))</value>
+                </set-header>
+                <set-header name="content-type" exists-action="override">
+                    <value>application/json</value>
+                </set-header>
+                %{ if config.backend_url != null}  
+                <set-backend-service base-url="${config.backend_url}" />
+                %{ endif ~}
+                %{ if config.backend_id != null} 
+                <set-backend-service backend-id="${config.backend_id}" />
+                %{ endif ~}
+                <rewrite-uri template="${ config.rewrite_uri }" />
+
+                <cors allow-credentials="${config.allow-credentials}">
+
+                    %{ if config.cors_allowed_origins != null }
+                    <allowed-origins>
+                        %{ for origin in config.cors_allowed_origins }
+                                %{ if origin != null && origin != "" }
+                        <origin>${ origin }</origin>
+                                %{ endif ~}
+                        %{ endfor ~}
+                    </allowed-origins>
+                    %{ endif ~}
+
+                    %{ if config.cors_allowed_method != null }
+                    <allowed-methods>
+                        <method>${ config.cors_allowed_method }</method>
+                    </allowed-methods>
+                    %{ endif ~}
+
+                    %{ if config.cors_allowed_headers != null }
+                    <allowed-headers>
+                        %{ for header in config.cors_allowed_headers }
+                        <header>${ header }</header>
+                        %{ endfor ~}
+                    </allowed-headers>
+                    %{ endif ~}
+
+                    %{ if config.cors_exposed_headers != null }
+                    <expose-headers>
+
+                        <header>${ config.cors_exposed_headers }</header>
+
+                    </expose-headers>
+                    %{ endif ~}
+
+                </cors>
+
+            </inbound>
+            <backend>
+                <base />
+            </backend>
+            <outbound>
+                <set-header name="ErrorSource" exists-action="override">
+                    <value>@(context.Variables.GetValueOrDefault<string>("guest-access-token"))</value>
+                    </set-header>
+                    <set-header name="X-Powered-By" exists-action="delete" />
+                    <set-header name="Strict-Transport-Security" exists-action="override">
+                    <!-- Recommended max-age is 2 years, which is 63072000 seconds. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security  -->
+                        <value>max-age=63072000; includeSubDomains; preload</value>
+                    </set-header>
+                    <base />
+                </outbound>
+                <on-error>
+                    <base />
+                    <set-header name="ErrorSource" exists-action="override">
+                        <value>@(context.LastError.Source)</value>
+                    </set-header>
+                    <set-header name="ErrorMessage" exists-action="override">
+                        <value>@(context.LastError.Message)</value>
+                    </set-header>
+                </on-error>
+            </policies>

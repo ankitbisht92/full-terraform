@@ -1,0 +1,6 @@
+location                               = "UK South"
+public_dns_zone_name                   = "dev.bi-digital.co.uk"
+dns_resource_group_name                = "rg-uks-staging-digital-hybrid"
+gtm_env_auth                           = "JaOmn40jPLO9ehcopFAfeQ"
+gtm_env_preview                        = "env-3"
+centralised_log_analytics_workspace_id = "/subscriptions/6cb0107e-b593-4d6f-bc10-7dfd0fff45c0/resourceGroups/rg-uks-prod-mgt-core/providers/Microsoft.OperationalInsights/workspaces/la-uks-prod-mgt-core"
