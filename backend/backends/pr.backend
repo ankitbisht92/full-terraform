@@ -1,0 +1,3 @@
+resource_group_name = "rg-uks-dev-tfstates-dh"
+storage_account_name = "stukstswdevtfstatesdh"
+container_name = "prs"

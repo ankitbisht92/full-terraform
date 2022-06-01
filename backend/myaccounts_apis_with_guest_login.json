@@ -1,0 +1,160 @@
+{
+    "api_definitions": [
+        {
+            "operation_id": "myaccount-standing-data",
+            "display_name": "MyAccount Standing Data",
+            "url_template": "myaccount/account-setup/standing/data",
+            "description": "This API returns standing data, e.g. Countries, Titles etc.",
+            "policy": {
+                "cors": {
+                    "method": "GET",
+                    "headers": [
+                        "Content-Type",
+                        "Origin"
+                    ]
+                },
+                "backend_id": "bestinvest-online-api",
+                "rewrite_url": "/AccountSetup/standing/data"
+            }
+        },
+        {
+            "operation_id": "myaccount-unique-username-checker",
+            "display_name": "MyAccount Unique Username Checker",
+            "url_template": "myaccount/account-setup/check-username-exists",
+            "description": "This API take the username as userName in body to check and returns a boolean.",
+            "policy": {
+                "cors": {
+                    "method": "POST",
+                    "headers": [
+                        "Content-Type",
+                        "Origin"
+                    ]
+                },
+                "backend_id": "bestinvest-online-api",
+                "rewrite_url": "/AccountSetup/checkusernameexists"
+            }
+        },
+        {
+            "operation_id": "online-nino-duplicate-check",
+            "display_name": "Online NINO duplicate check",
+            "url_template": "myaccount/account-setup/check-if-client-is-ois-or-legacy/{id}",
+            "description": "This API take the NINO and validates for duplicate on active accounts.",
+            "path_params": [
+                "id"
+            ],
+            "policy": {
+                "cors": {
+                    "method": "GET",
+                    "headers": [
+                        "Content-Type",
+                        "Origin"
+                    ]
+                },
+                "backend_id": "bestinvest-online-api",
+                "rewrite_url": "/AccountSetup/checkifclientisoisorlegacy/{id}"
+            }
+        },
+        {
+            "operation_id": "additional-details",
+            "display_name": "Additional Details",
+            "url_template": "myaccount/account-setup/contact/additional-details",
+            "description": "This API takes the contactId and TIN details in the request body and saves it in db",
+            "policy": {
+                "cors": {
+                    "method": "PUT",
+                    "headers": [
+                        "Content-Type",
+                        "Origin"
+                    ]
+                },
+                "backend_id": "bestinvest-online-api",
+                "rewrite_url": "/AccountSetup/contact/additional-details/v2"
+            }
+        },
+        {
+            "operation_id": "save-fatca-question-answers",
+            "display_name": "Save Fatca Questions and Answers",
+            "url_template": "myaccount/fatca/save-questions-answers",
+            "description": "This API takes the fatca questions and answers from a contact and saves them to db",
+            "policy": {
+                "cors": {
+                    "method": "POST",
+                    "headers": [
+                        "Content-Type",
+                        "Origin"
+                    ]
+                },
+                "backend_id": "bestinvest-online-api",
+                "rewrite_url": "/Fatca/savefatcaquestions"
+            }
+        },
+        {
+            "operation_id": "aml-identity-check",
+            "display_name": "AML Identity Check",
+            "url_template": "myaccount/account-setup/aml/identity-check",
+            "description": "This API is used to perform identity checks.",
+            "policy": {
+                "cors": {
+                    "method": "POST",
+                    "headers": [
+                        "Content-Type",
+                        "Origin"
+                    ]
+                },
+                "backend_id": "bestinvest-online-api",
+                "rewrite_url": "/Aml/identitycheck"
+            }
+        },
+        {
+            "operation_id": "monthly-contributions",
+            "display_name": "Monthly Contributions",
+            "url_template": "/myaccount/account-setup/contact/monthly-contributions",
+            "description": "This API is used for monthly contributions",
+            "policy": {
+                "cors": {
+                    "method": "POST",
+                    "headers": [
+                        "Content-Type",
+                        "Origin"
+                    ]
+                },
+                "rewrite_url": "/AccountSetup/contact/monthly-contributions",
+                "backend_id": "bestinvest-online-api"
+            }
+        },
+        {
+            "operation_id": "send-activation-email",
+            "display_name": "Send Activation Email",
+            "url_template": "/myaccount/account-setup/contact/send-activation-email",
+            "description": "This API is used to re-send an activation email to a user",
+            "policy": {
+                "cors": {
+                    "method": "POST",
+                    "headers": [
+                        "Content-Type",
+                        "Origin"
+                    ]
+                },
+                "rewrite_url": "/AccountSetup/contact/sendactivationemail",
+                "backend_id": "bestinvest-online-api"
+            }
+        },
+        {
+            "operation_id": "validate-email-and-activate-account",
+            "display_name": "Validate Email and Activate Account",
+            "url_template": "/myaccount/account-setup/contact/validate-email-and-activate-account",
+            "description": "This API is used for validating the email and activating a user's account",
+            "policy": {
+                "cors": {
+                    "method": "POST",
+                    "headers": [
+                        "Content-Type",
+                        "Origin"
+                    ]
+                },
+                "rewrite_url": "/AccountSetup/contact/validateemailandactivateaccount",
+                "backend_id": "bestinvest-online-api"
+            }
+        }
+    ]
+}

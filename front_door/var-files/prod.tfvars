@@ -1,0 +1,7 @@
+environment_prefix                     = "prod"
+centralised_log_analytics_workspace_id = "/subscriptions/6cb0107e-b593-4d6f-bc10-7dfd0fff45c0/resourceGroups/rg-uks-prod-mgt-core/providers/Microsoft.OperationalInsights/workspaces/la-uks-prod-mgt-core"
+soc_eventhub_name                          = "ehuksprodmgtsoc"
+soc_eventhub_authorization_rule_id         = "/subscriptions/6cb0107e-b593-4d6f-bc10-7dfd0fff45c0/resourceGroups/rg-uks-prod-mgt-eventhub/providers/Microsoft.EventHub/namespaces/ehuksprodmgtsoc27862/authorizationRules/socSend"
+cname_record_secondary                 = "my"
+public_dns_zone_name_secondary         = "account.bestinvest.co.uk"
+custom_frontend_name                   = "prod"

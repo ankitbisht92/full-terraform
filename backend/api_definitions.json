@@ -1,0 +1,1994 @@
+{
+  "api_definitions": [
+    {
+      "operation_id": "get-standing-data",
+      "display_name": "Get Standing Data",
+      "url_template": "/Assets/readymade/standingdata",
+      "description": "This will return the ready made portfolio sedol number for each of the risk profiles (i.e. Defensive, Balanaced, Growth etc)",
+      "policy": {
+        "cors": {
+          "method": "GET"
+        },
+        "backend_id": "bestinvest-online-api"
+      }
+    },
+    {
+      "operation_id": "get-asset-details",
+      "display_name": "Get Asset details",
+      "url_template": "/Assets/assetdetail/{sedol}",
+      "description": "This will return the asset details based on sedol number.",
+      "path_params": ["sedol"],
+      "policy": {
+        "cors": {
+          "method": "GET"
+        },
+        "backend_id": "bestinvest-online-api"
+      }
+    },
+    {
+      "operation_id": "get-asset-allocation-breakdown",
+      "display_name": "Get Asset Allocation Breakdown",
+      "url_template": "/Assets/assetallocation/{sedol}",
+      "description": "This will return the asset allocation breakdown based on sedol number.",
+      "path_params": ["sedol"],
+      "policy": {
+        "cors": {
+          "method": "GET"
+        },
+        "backend_id": "bestinvest-online-api"
+      }
+    },
+    {
+      "operation_id": "post-projections",
+      "display_name": "Post Projections",
+      "url_template": "/Assets/projections",
+      "description": "This returns the projection of fund performance over 5 years.",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Authorization"]
+        },
+        "backend_id": "bestinvest-online-api"
+      }
+    },
+    {
+      "operation_id": "tilney-asset-model",
+      "display_name": "tilney-asset-model",
+      "url_template": "/Assets/tilney-asset-model/{riskName}",
+      "description": "This returns the TAA values like Expected return, Volatility, ZScores for the given TAA /Risk name",
+      "path_params": ["riskName"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Authorization"]
+        },
+        "backend_id": "bestinvest-online-api"
+      }
+    },
+    {
+      "operation_id": "myaccount-guest-login",
+      "display_name": "MyAccount Guest Login",
+      "url_template": "/Auth/token",
+      "description": "This endpoint takes the username and password as body and returns a guest token to make subsequent onboarding API calls.",
+      "policy": {
+        "cors": {
+          "method": "POST"
+        },
+        "backend_id": "bestinvest-online-api"
+      }
+    },
+    {
+      "operation_id": "find-all-addresses",
+      "display_name": "Find all Addresses",
+      "url_template": "/Address/find",
+      "description": "This endpoint takes searchTerm and lastId as query params, and returns a list of addresses.",
+      "policy": {
+        "cors": {
+          "method": "GET"
+        },
+        "backend_id": "bestinvest-online-api"
+      }
+    },
+    {
+      "operation_id": "retrieve-addresses",
+      "display_name": "Retrieve addresses",
+      "url_template": "/Address/retrieve",
+      "description": "This endpoint takes the ID returned from the find all addresses endpoint as a query param and returns the addresses under the given ID.",
+      "policy": {
+        "cors": {
+          "method": "GET"
+        },
+        "backend_id": "bestinvest-online-api"
+      }
+    },
+    {
+      "operation_id": "update-address",
+      "display_name": "Update Address",
+      "url_template": "/myaccount/addresses/admin-queue",
+      "description": "This end point updates the customer address",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/addresses/admin-queue"
+      }
+    },
+    {
+      "operation_id": "identity-login",
+      "display_name": "Identity Login",
+      "url_template": "/login",
+      "description": "This lets the user login to Identity API.",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type"]
+        },
+        "backend_id": "bestinvest-identity-api"
+      }
+    },
+    {
+      "operation_id": "identity-pin",
+      "display_name": "Identity PIN(Two Factor Auth)",
+      "url_template": "/pin",
+      "description": "This lets the user to enter PIN for two factor authentication",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type"]
+        },
+        "backend_id": "bestinvest-identity-api"
+      }
+    },
+    {
+      "operation_id": "identity-validate-reset-token",
+      "display_name": "Identity validate reset token",
+      "url_template": "/validate-reset-token",
+      "description": "This lets to validate token",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type"]
+        },
+        "backend_id": "bestinvest-identity-api"
+      }
+    },
+    {
+      "operation_id": "projections-portfolio-asset-allocation",
+      "display_name": "Projections - Get portfolio asset allocation",
+      "url_template": "/projections/portfolio-asset-allocation",
+      "description": "Connects to the projections function app and returns the asset allocation of a given portfolio",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "projections_function_app",
+        "rewrite_url": "/portfolio-asset-allocation"
+      }
+    },
+    {
+      "operation_id": "projections-portfolio-risk-profile",
+      "display_name": "Projections - Get portfolio risk profile",
+      "url_template": "/projections/portfolio-risk-profile",
+      "description": "Connects to the projections function app and returns the closest aligned risk profile for a given portfolio",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "projections_function_app",
+        "rewrite_url": "/portfolio-risk-profile"
+      }
+    },
+    {
+      "operation_id": "identity-refresh-token",
+      "display_name": "Refresh Token",
+      "url_template": "/refresh-token",
+      "description": "This refreshes the generated idenity token",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type"]
+        },
+        "backend_id": "bestinvest-identity-api"
+      }
+    },
+    {
+      "operation_id": "myaccount-clients",
+      "display_name": "Myaccount get clients details",
+      "url_template": "/myaccount/clients/{id}",
+      "description": "This lets the user to get client details",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/clients/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-clients-edit",
+      "display_name": "Myaccount edit client",
+      "url_template": "/myaccount/clients/{id}",
+      "description": "This lets the user to edit clients data",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "PATCH",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/clients/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-clients-features",
+      "display_name": "Myaccount get features of account details",
+      "url_template": "/myaccount/clients/{id}/features",
+      "description": "This lets the user to get features details for accounts",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/clients/{id}/features"
+      }
+    },
+    {
+      "operation_id": "myaccount-performance-contact",
+      "display_name": "Myaccount get performance contact",
+      "url_template": "/myaccount/performance-contact/{id}",
+      "description": "This lets the user to get performance",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/performance-contact/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-investment-summary-account",
+      "display_name": "Myaccount investment summary account",
+      "url_template": "/myaccount/investment-summary-account/{id}",
+      "description": "This lets the user to investment summary for given account",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/investment-summary-account/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-investment-summary-accounts",
+      "display_name": "Myaccount investment summary for accounts",
+      "url_template": "/myaccount/investment-summary-account",
+      "description": "This lets the user to investment summary for all given accounts ",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/investment-summary-account"
+      }
+    },
+    {
+      "operation_id": "myaccount-breakdown-allocation",
+      "display_name": "Myaccount breakdown allocation",
+      "url_template": "/myaccount/breakdown-allocation/{id}",
+      "description": "This lets the user to get breakdown of allocation for a given account",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/breakdown-allocation/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-monthly-savings",
+      "display_name": "Myaccount account monthly savings",
+      "url_template": "/myaccount/accounts/{id}/monthly-savings",
+      "description": "This lets the user to get account monthly savings",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/accounts/{id}/monthly-savings"
+      }
+    },
+    {
+      "operation_id": "myaccount-delete-monthly-savings",
+      "display_name": "Myaccount account delete monthly savings",
+      "url_template": "/myaccount/monthly-savings/{id}",
+      "description": "This lets the user to delete monthly savings",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "DELETE",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/monthly-savings/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-edit-monthly-savings",
+      "display_name": "Myaccount account edit monthly savings",
+      "url_template": "/myaccount/monthly-savings/{id}",
+      "description": "This lets the user to edit monthly savings",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "PATCH",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/monthly-savings/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-add-monthly-savings",
+      "display_name": "Myaccount add monthly savings",
+      "url_template": "/myaccount/monthly-savings",
+      "description": "This lets the user add monthly savings to their account",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/monthly-savings"
+      }
+    },
+    {
+      "operation_id": "myaccount-contribution",
+      "display_name": "Myaccount account contributions",
+      "url_template": "/myaccount/contribution-account/{id}",
+      "description": "This lets the user to get contributions a given account",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/contribution-account/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-isa-contributions",
+      "display_name": "Myaccount ISA contributions",
+      "url_template": "/myaccount/isa-contributions/{id}",
+      "description": "This lets the user to get ISA contributions for the given contact",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/isa-contributions/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-account-isa-contributions",
+      "display_name": "Myaccount account ISA contributions",
+      "url_template": "/myaccount/isa-contributions-account/{id}",
+      "description": "This lets the user get ISA contributions for the given account",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/isa-contributions-account/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-investments",
+      "display_name": "Myaccount investments",
+      "url_template": "/myaccount/Accounts/{id}/investments",
+      "description": "This lets the user to get investments for the given account",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/Accounts/{id}/investments"
+      }
+    },
+    {
+      "operation_id": "myaccount-Aggregated-breakdown-allocation",
+      "display_name": "Myaccount Aggregated breakdown allocation for multiple accounts",
+      "url_template": "/myaccount/Aggregated-breakdown-allocation",
+      "description": "This lets the user to get breakdown of allocation for multiple accounts",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/Aggregated-breakdown-allocation"
+      }
+    },
+    {
+      "operation_id": "myaccount-performance-accounts-aggregated",
+      "display_name": "Myaccount performance aggregated for multiple accounts",
+      "url_template": "/myaccount/performance-accounts-aggregated",
+      "description": "This lets the user to get performance aggregated for multiple accounts",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/performance-accounts-aggregated"
+      }
+    },
+    {
+      "operation_id": "myaccount-netcontribution-accounts-aggregated",
+      "display_name": "Myaccount netcontribution aggregated for multiple accounts",
+      "url_template": "/myaccount/netcontribution-accounts-aggregated",
+      "description": "This lets the user to get net contributions for multiple accounts",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/netcontribution-accounts-aggregated"
+      }
+    },
+    {
+      "operation_id": "features-get-all",
+      "display_name": "Feature Toggles - Get all feature toggles",
+      "url_template": "/features",
+      "description": "Queries for all feature toggles which are held inside Azure App Config",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "features_function_app",
+        "rewrite_url": "/features"
+      }
+    },
+    {
+      "operation_id": "features-get-id",
+      "display_name": "Feature Toggles - Get features by user id",
+      "url_template": "/features/{id}",
+      "description": "Queries for by user ID all feature toggles which are held inside Azure App Config",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "features_function_app",
+        "rewrite_url": "/features/{id}"
+      }
+    },
+    {
+      "operation_id": "projections-simulate-projection",
+      "display_name": "Projections - Get simulate projection",
+      "url_template": "/projections/simulate-projection",
+      "description": "Connects to the simulate-projection function app and returns the simulate projection for the given inputs",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "projections_function_app",
+        "rewrite_url": "/simulate-projection"
+      }
+    },
+    {
+      "operation_id": "projections-goal-risk-profile",
+      "display_name": "Projections - Get optimal risk profile",
+      "url_template": "/projections/goal-risk-profile",
+      "description": "Connects to the goal-risk-profile function app and returns the risk profile that allows at least 100%-on-track for a goal, or the % on-track achieved by the most risky risk profile",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "projections_function_app",
+        "rewrite_url": "/goal-risk-profile"
+      }
+    },
+    {
+      "operation_id": "returns-annualised-return",
+      "display_name": "Returns - Get annualised return",
+      "url_template": "/returns/annualised-return",
+      "description": "Connects to the annualised-return function app and returns the annualised return for the given inputs",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "returns_function_app",
+        "rewrite_url": "/annualised-return"
+      }
+    },
+    {
+      "operation_id": "myaccount-market-open",
+      "display_name": "Myaccount-market-open",
+      "url_template": "/myaccount/market-open",
+      "description": "This lets the user to get market open status",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/market-open"
+      }
+    },
+    {
+      "operation_id": "myaccount-share-quote",
+      "display_name": "Myaccount share quote",
+      "url_template": "/myaccount/share-quote",
+      "description": "This lets the user to get share quote for given ISIN code",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/share-quote"
+      }
+    },
+    {
+      "operation_id": "myaccount-share-quote-status",
+      "display_name": "Myaccount share quote status",
+      "url_template": "/myaccount/share-quote-status",
+      "description": "This lets the user to get breakdown of allocation for a given account",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/share-quote-status"
+      }
+    },
+    {
+      "operation_id": "myaccount-limit-cost",
+      "display_name": "Myaccount Limit cost",
+      "url_template": "/myaccount/limit-cost",
+      "description": "This lets the user to execute limit cost instruction",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/limit-cost"
+      }
+    },
+    {
+      "operation_id": "myaccount-share-order",
+      "display_name": "Myaccount share order",
+      "url_template": "/myaccount/share-order",
+      "description": "This lets the user to execute share order",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/share-order"
+      }
+    },
+    {
+      "operation_id": "myaccount-share-order-status",
+      "display_name": "Myaccount share order status",
+      "url_template": "/myaccount/share-order-status",
+      "description": "This lets the user get status of the share order",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/share-order-status"
+      }
+    },
+    {
+      "operation_id": "myaccount-share-limit-order-cancellation",
+      "display_name": "Myaccount share limit order cancellation",
+      "url_template": "/myaccount/share-limit-order-cancellation",
+      "description": "This lets the user cancel a limit order",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/share-limit-order-cancellation"
+      }
+    },
+    {
+      "operation_id": "myaccount-share-limit-order-cancellation-status",
+      "display_name": "Myaccount share limit order cancellation",
+      "url_template": "/myaccount/share-limit-order-cancellation-status",
+      "description": "This lets the user get the status of a request to cancel a limit order",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/share-limit-order-cancellation-status"
+      }
+    },
+    {
+      "operation_id": "ois-payment",
+      "display_name": "ois payment",
+      "url_template": "/ois/payment",
+      "description": "get payment transaction details",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-oisapi-api",
+        "rewrite_url": "/payment"
+      }
+    },
+    {
+      "operation_id": "ois-payment-post",
+      "display_name": "ois payment",
+      "url_template": "/ois/payment",
+      "description": "insert transaction details into db",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-oisapi-api",
+        "rewrite_url": "/payment"
+      }
+    },
+    {
+      "operation_id": "ois-payment-by-id",
+      "display_name": "ois payment by id",
+      "url_template": "/ois/payment/{id}",
+      "description": "get payment transaction details via id",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-oisapi-api",
+        "rewrite_url": "/payment/{id}"
+      }
+    },
+    {
+      "operation_id": "ois-payment-status",
+      "display_name": "ois payment status",
+      "url_template": "/ois/payment-status",
+      "description": "it takes ordercode as parameter and gives paymment status",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-oisapi-api",
+        "rewrite_url": "/payment-status"
+      }
+    },
+    {
+      "operation_id": "payment-v1",
+      "display_name": "payment v1",
+      "url_template": "/ois/payment/v1",
+      "description": "returns iframe url for worldpay",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-oisapi-api",
+        "rewrite_url": "/payment/v1"
+      }
+    },
+    {
+      "operation_id": "payment-validate-mac",
+      "display_name": "payment validate mac",
+      "url_template": "/ois/payment-validate-mac",
+      "description": "this validates mac number",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-oisapi-api",
+        "rewrite_url": "/payment-validate-mac"
+      }
+    },
+    {
+      "operation_id": "worldpay-payment-complete",
+      "display_name": "worldpay payment complete",
+      "url_template": "/ois/worldpay-payment-complete",
+      "description": "it changes payment status in db",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-oisapi-api",
+        "rewrite_url": "/worldpay-payment-complete"
+      }
+    },
+    {
+      "operation_id": "myaccount-get-self-Portfolios",
+      "display_name": "Myaccount get Portfolios",
+      "url_template": "/myaccount/self-portfolio/{contactId}",
+      "description": "This lets the user to get portfolios",
+      "path_params": ["contactId"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/self-portfolio/{contactId}"
+      }
+    },
+    {
+      "operation_id": "myaccount-create-self-Portfolios",
+      "display_name": "Myaccount create self Portfolios",
+      "url_template": "/myaccount/self-portfolio",
+      "description": "This lets the user to create portfolios",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/self-portfolio"
+      }
+    },
+    {
+      "operation_id": "myaccount-edit-self-Portfolios",
+      "display_name": "Myaccount edit self Portfolios",
+      "url_template": "/myaccount/self-portfolio",
+      "description": "This lets the user to edit portfolios",
+      "policy": {
+        "cors": {
+          "method": "PATCH",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/self-portfolio"
+      }
+    },
+    {
+      "operation_id": "myaccount-delete-self-Portfolios",
+      "display_name": "Myaccount delete self Portfolios",
+      "url_template": "/myaccount/self-portfolio/{id}",
+      "description": "This lets the user to delete portfolios",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "DELETE",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/self-portfolio/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-accounts",
+      "display_name": "Myaccount Accounts",
+      "url_template": "/myaccount/Accounts/{id}",
+      "description": "This lets the user to get  investment and asset info (indicative price and time) for the given account",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/Accounts/{id}"
+      }
+    },
+    {
+      "operation_id": "get-bestinvestplus-categories",
+      "display_name": "Get digital fact find categories",
+      "url_template": "/AuthorisedBestInvestPlus/categories",
+      "description": "This will return the categories for digital fact find",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": [
+            "Content-Type",
+            "Origin",
+            "Authorization",
+            "onlineapitoken"
+          ]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/AuthorisedBestInvestPlus/categories"
+      }
+    },
+    {
+      "operation_id": "get-bestinvestplus-progress",
+      "display_name": "Get BestInvestPlus progress",
+      "url_template": "/AuthorisedBestInvestPlus/progress/{contactId}",
+      "path_params": ["contactId"],
+      "description": "This will return the progress status for digital fact find",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": [
+            "Content-Type",
+            "Origin",
+            "Authorization",
+            "onlineapitoken"
+          ]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/AuthorisedBestInvestPlus/progress/{contactId}"
+      }
+    },
+    {
+      "operation_id": "get-bestinvestplus-category-questions",
+      "display_name": "Get digital fact find questions for a given category",
+      "url_template": "/AuthorisedBestInvestPlus/category/{categoryId}/questions",
+      "path_params": ["categoryId"],
+      "description": "This will return the questions for the given category",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": [
+            "Content-Type",
+            "Origin",
+            "Authorization",
+            "onlineapitoken"
+          ]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/AuthorisedBestInvestPlus/category/{categoryId}/questions"
+      }
+    },
+    {
+      "operation_id": "put-bestinvestplus-category-questions",
+      "display_name": "Save digital fact find answers for a given category ",
+      "url_template": "/AuthorisedBestInvestPlus/category/{categoryId}/questions",
+      "path_params": ["categoryId"],
+      "description": "This will save the answers for the given category",
+      "policy": {
+        "cors": {
+          "method": "PUT",
+          "headers": [
+            "Content-Type",
+            "Origin",
+            "Authorization",
+            "onlineapitoken"
+          ]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/AuthorisedBestInvestPlus/category/{categoryId}/questions"
+      }
+    },
+    {
+      "operation_id": "get-bestinvestplus-category-questions-answers",
+      "display_name": "get digital fact find category questions and answers for a given contact and category",
+      "url_template": "/AuthorisedBestInvestPlus/contact/{contactId}/category/{categoryId}/questionsAnswers",
+      "path_params": ["categoryId", "contactId"],
+      "description": "This will return the questions and answers for the given contact and category",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": [
+            "Content-Type",
+            "Origin",
+            "Authorization",
+            "onlineapitoken"
+          ]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/AuthorisedBestInvestPlus/contact/{contactId}/category/{categoryId}/questionsAnswers"
+      }
+    },
+    {
+      "operation_id": "oxford-risk-questions",
+      "display_name": "get oxford risk questions",
+      "url_template": "/AuthorisedOxfordRisk/questions",
+      "description": "This will return the oxford risk questions",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": [
+            "Content-Type",
+            "Origin",
+            "Authorization",
+            "onlineapitoken"
+          ]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/AuthorisedOxfordRisk/questions"
+      }
+    },
+    {
+      "operation_id": "put-oxford-risk-answers",
+      "display_name": "Save oxford risk answers",
+      "url_template": "/AuthorisedOxfordRisk/answers",
+      "description": "This will save answers for oxford risk questions",
+      "policy": {
+        "cors": {
+          "method": "PUT",
+          "headers": [
+            "Content-Type",
+            "Origin",
+            "Authorization",
+            "onlineapitoken"
+          ]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/AuthorisedOxfordRisk/answers"
+      }
+    },
+    {
+      "operation_id": "myaccount-withdraw-cash",
+      "display_name": "Myaccount withdraw cash",
+      "url_template": "/myaccount/withdraw-cash",
+      "description": "withdraw cash from user account - activity entry in db",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/withdraw-cash"
+      }
+    },
+    {
+      "operation_id": "myaccount-bank-details",
+      "display_name": "Myaccount bank details for clients",
+      "url_template": "/myaccount/bank-details",
+      "description": "This will return bank account details",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/bank-details"
+      }
+    },
+    {
+      "operation_id": "ois-assets",
+      "display_name": "ois assets",
+      "url_template": "/ois/assets",
+      "description": "Get performance and statistics by Asset IDs",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-oisapi-api",
+        "rewrite_url": "/assets"
+      }
+    },
+    {
+      "operation_id": "cost-and-charges",
+      "display_name": "onlineapi cost and charges",
+      "url_template": "/assets/costandcharges",
+      "description": "Get cost and charges for a selection of funds",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/assets/costandcharges"
+      }
+    },
+    {
+      "operation_id": "myaccount-transactions-pending",
+      "display_name": "Myaccount transactions pending",
+      "url_template": "/myaccount/accounts/{id}/transactions-pending",
+      "path_params": ["id"],
+      "description": "Get pending transitions",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/accounts/{id}/transactions-pending"
+      }
+    },
+    {
+      "operation_id": "myaccount-transactions-completed",
+      "display_name": "Myaccount transactions completed",
+      "url_template": "/myaccount/accounts/{id}/transactions-completed",
+      "path_params": ["id"],
+      "description": "Get completed transitions for date range",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/accounts/{id}/transactions-completed"
+      }
+    },
+    {
+      "operation_id": "myaccount-breakdown-geographic",
+      "display_name": "Myaccount breakdown geographic",
+      "url_template": "/myaccount/breakdown-geographic/{id}",
+      "path_params": ["id"],
+      "description": "Get asset geographic breakdown for an account based on account ID",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/breakdown-geographic/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-breakdown-capitalisation",
+      "display_name": "Myaccount breakdown capitalisation",
+      "url_template": "/myaccount/breakdown-capitalisation/{id}",
+      "path_params": ["id"],
+      "description": "Get asset capitalisation breakdown for an account based on account ID",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/breakdown-capitalisation/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-breakdown-allocation-csv",
+      "display_name": "Myaccount breakdown allocation csv",
+      "url_template": "/myaccount/breakdown-allocation-csv/{id}",
+      "path_params": ["id"],
+      "description": "Download CSV for breakdown allocation",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/breakdown-allocation-csv/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-breakdown-capitalisation-csv",
+      "display_name": "Myaccount breakdown capitalisation csv",
+      "url_template": "/myaccount/breakdown-capitalisation-csv/{id}",
+      "path_params": ["id"],
+      "description": "Download CSV for breakdown capitalisation",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/breakdown-capitalisation-csv/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-breakdown-geographic-csv",
+      "display_name": "Myaccount breakdown geographic csv",
+      "url_template": "/myaccount/breakdown-geographic-csv/{id}",
+      "path_params": ["id"],
+      "description": "Download CSV for breakdown geographic",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/breakdown-geographic-csv/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-transactions-completed-csv",
+      "display_name": "Myaccount transactions completed",
+      "url_template": "/myaccount/accounts/{id}/transactions-completed-csv",
+      "path_params": ["id"],
+      "description": "Download CSV for completed transactions",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/accounts/{id}/transactions-completed-csv"
+      }
+    },
+    {
+      "operation_id": "create-contact-wrapper",
+      "display_name": "Create-Contact-Wrapper",
+      "url_template": "/wrappers/create-contact",
+      "description": "Create Contact Wrapper used for the contact creation process.",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "wrappers_function_app",
+        "rewrite_url": "/create-contact"
+      }
+    },
+    {
+      "operation_id": "fatca-and-tin-submission",
+      "display_name": "Fatca and Tin submission",
+      "url_template": "/wrappers/fatca-and-tin-submission",
+      "description": "Fatca and Tin submission Wrapper used to call the API for these operations.",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "wrappers_function_app",
+        "rewrite_url": "/fatca-and-tin-submission"
+      }
+    },
+    {
+      "operation_id": "insert-account-isa",
+      "display_name": "Insert ISA Account",
+      "url_template": "/wrappers/insert-account-isa",
+      "description": "Insert ISA Account Wrapper used for inserting an ISA account",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "wrappers_function_app",
+        "rewrite_url": "/insert-account-isa"
+      }
+    },
+    {
+      "operation_id": "myaccount-create-basket",
+      "display_name": "Myaccount create Basket",
+      "url_template": "/myaccount/user-basket",
+      "description": "Creates a basket for the user",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/user-basket"
+      }
+    },
+    {
+      "operation_id": "myaccount-delete-basket",
+      "display_name": "Myaccount delete all items in Basket",
+      "url_template": "/myaccount/user-basket/{basketId}",
+      "description": "Deletes all items in the user's basket",
+      "path_params": ["basketId"],
+      "policy": {
+        "cors": {
+          "method": "DELETE",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/user-basket/{basketId}"
+      }
+    },
+    {
+      "operation_id": "myaccount-get-basket-contents",
+      "display_name": "Myaccount get Basket Contents",
+      "url_template": "/myaccount/user-basket-item",
+      "description": "This lets the user get the contents of their basket",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/user-basket-item"
+      }
+    },
+    {
+      "operation_id": "myaccount-add-item-to-basket",
+      "display_name": "Myaccount add item to Basket",
+      "url_template": "/myaccount/user-basket-item",
+      "description": "Adds an item to the user's basket",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/user-basket-item"
+      }
+    },
+    {
+      "operation_id": "myaccount-update-item-in-basket",
+      "display_name": "Myaccount update item in Basket",
+      "url_template": "/myaccount/user-basket-item/{id}",
+      "description": "Updates an item in the user's basket",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "PATCH",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/user-basket-item/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-delete-item-in-basket",
+      "display_name": "Myaccount delete item in Basket",
+      "url_template": "/myaccount/user-basket-item/{fundBasketItemId}",
+      "description": "Deletes an item in the user's basket",
+      "path_params": ["fundBasketItemId"],
+      "policy": {
+        "cors": {
+          "method": "DELETE",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/user-basket-item/{fundBasketItemId}"
+      }
+    },
+    {
+      "operation_id": "myaccount-asset-info",
+      "display_name": "Myaccount get asset info",
+      "url_template": "/asset-info/{sedol}",
+      "description": "Gets info about an asset given its SEDOL",
+      "path_params": ["sedol"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin"]
+        },
+        "backend_id": "bestinvest-myaccounts-api"
+      }
+    },
+    {
+      "operation_id": "myaccount-asset-infos",
+      "display_name": "Myaccount get asset infos",
+      "url_template": "/asset-info",
+      "description": "Gets info about multiple funds given a list of SEDOLs",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin"]
+        },
+        "backend_id": "bestinvest-myaccounts-api"
+      }
+    },
+    {
+      "operation_id": "myaccount-account-asset-info",
+      "display_name": "Myaccount get asset info for account",
+      "url_template": "/asset-info/account/{accountId}/{sedol}",
+      "description": "Gets info about an asset for a specific account given its SEDOL",
+      "path_params": ["accountId", "sedol"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api"
+      }
+    },
+    {
+      "operation_id": "myaccount-account-asset-infos",
+      "display_name": "Myaccount get asset infos for account",
+      "url_template": "/asset-info/account/{accountId}",
+      "description": "Gets info about multiple funds for a specific account given a list of SEDOLs",
+      "path_params": ["accountId"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api"
+      }
+    },
+    {
+      "operation_id": "myaccount-buy-fund",
+      "display_name": "Myaccount buy fund",
+      "url_template": "/myaccount/fund-buy",
+      "description": "Buys a fund that the client",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/fund-buy"
+      }
+    },
+    {
+      "operation_id": "myaccount-sell-fund",
+      "display_name": "Myaccount sell fund",
+      "url_template": "/myaccount/fund-sell",
+      "description": "Sells a fund that the client holds",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/fund-sell"
+      }
+    },
+    {
+      "operation_id": "myaccount-switch-fund",
+      "display_name": "Myaccount switch fund",
+      "url_template": "/myaccount/fund-switch",
+      "description": "Switches a fund that the client holds for another or multiple funds",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/fund-switch"
+      }
+    },
+    {
+      "operation_id": "myaccount-edit-phone-number",
+      "display_name": "Myaccount account edit phone number",
+      "url_template": "/myaccount/phones/{id}",
+      "description": "This lets the user to edit phone number",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "PATCH",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/phones/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-insert-phone-number",
+      "display_name": "Myaccount account insert phone number",
+      "url_template": "/myaccount/phones",
+      "description": "This lets the user to insert phone number",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/phones"
+      }
+    },
+    {
+      "operation_id": "myaccount-delete-phone-number",
+      "display_name": "Myaccount account delete phone number",
+      "url_template": "/myaccount/phones/{id}",
+      "description": "This lets the user to delete phone number",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "DELETE",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/phones/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-edit-email-address",
+      "display_name": "Myaccount account edit email address",
+      "url_template": "/myaccount/emails/{id}",
+      "description": "This lets the user to edit email address",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "PATCH",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/emails/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-edit-bank-details",
+      "display_name": "Myaccount bank edit details for clients",
+      "url_template": "/myaccount/bank-details/{id}",
+      "description": "This lets the user edit their bank account details",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "PATCH",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/bank-details/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-documents",
+      "display_name": "Myaccount documents",
+      "url_template": "/myaccount/documents",
+      "description": "Get documents for the date range",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/documents"
+      }
+    },
+    {
+      "operation_id": "myaccount-documents-download",
+      "display_name": "Myaccount documents download",
+      "url_template": "/myaccount/document-download/{id}",
+      "path_params": ["id"],
+      "description": "Get document file for download",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/document-download/{id}"
+      }
+    },
+    {
+      "operation_id": "insert-account-gia",
+      "display_name": "Insert GIA Account",
+      "url_template": "/wrappers/insert-account-gia",
+      "description": "Insert GIA Account Wrapper used for inserting a GIA account",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "wrappers_function_app",
+        "rewrite_url": "/insert-account-gia"
+      }
+    },
+    {
+      "operation_id": "insert-account-sipp",
+      "display_name": "Insert SIPP Account",
+      "url_template": "/wrappers/insert-account-sipp",
+      "description": "Insert SIPP Account Wrapper used for inserting a SIPP account",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "wrappers_function_app",
+        "rewrite_url": "/insert-account-sipp"
+      }
+    },
+    {
+      "operation_id": "myaccount-contact",
+      "display_name": "Myaccount get contact link account details",
+      "url_template": "/myaccount/clients/{id}/contact-links",
+      "description": "This lets the user to get contact details for linked accounts",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/clients/{id}/contact-links"
+      }
+    },
+    {
+      "operation_id": "edit-bank-details",
+      "display_name": "Edit Bank Details",
+      "url_template": "/wrappers/edit-bank-details",
+      "description": "Wrapper function used for encrypting the bank details and sending them to the API to be saved",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "wrappers_function_app",
+        "rewrite_url": "/edit-bank-details"
+      }
+    },
+    {
+      "operation_id": "myaccount-delete-contact",
+      "display_name": "Myaccount delete linked account request",
+      "url_template": "/myaccount/contact-links/{id}",
+      "description": "This lets the requester cancel a request to link to an account",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "DELETE",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/contact-links/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-reject-contact",
+      "display_name": "Myaccount reject linked account request",
+      "url_template": "/myaccount/contact-links/reject/{id}",
+      "description": "This lets the approver reject a request for linked account",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "DELETE",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/contact-links/reject/{id}"
+      }
+    },
+    {
+      "operation_id": "myaccount-add-bank-details",
+      "display_name": "Myaccount bank add details for clients",
+      "url_template": "/myaccount/bank-details",
+      "description": "This lets the user add their bank account details",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/bank-details"
+      }
+    },
+    {
+      "operation_id": "myaccount-post-contact",
+      "display_name": "Myaccount post linked account request",
+      "url_template": "/myaccount/contact-links",
+      "description": "This lets the user send a request to link an account",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/contact-links"
+      }
+    },
+    {
+      "operation_id": "myaccount-patch-contact",
+      "display_name": "Myaccount patch linked account request",
+      "url_template": "/myaccount/contact-links/{id}",
+      "description": "This lets the approver authorise a link request",
+      "path_params": ["id"],
+      "policy": {
+        "cors": {
+          "method": "PATCH",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/contact-links/{id}"
+      }
+    },
+    {
+      "operation_id": "insert-account-jisa",
+      "display_name": "Insert JISA Account",
+      "url_template": "/wrappers/insert-account-jisa",
+      "description": "Insert JISA Account Wrapper used for inserting a JISA account",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "wrappers_function_app",
+        "rewrite_url": "/insert-account-jisa"
+      }
+    },
+    {
+      "operation_id": "logged-in-complete-account-setup",
+      "display_name": "Logged In Complete Account Setup",
+      "url_template": "/myaccount/client-management/contact/complete-account-setup",
+      "description": "This API is used to complete an account setup for an existing client",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/clientManagement/contact/CompleteAccountSetup"
+      }
+    },
+    {
+      "operation_id": "logged-in-insert-update-accounts",
+      "display_name": "Logged In Insert Update Accounts",
+      "url_template": "/myaccount/client-management/contact/insert-update-accounts",
+      "description": "This API is used for inserting a new account for an existing client",
+      "policy": {
+        "cors": {
+          "method": "PUT",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/clientManagement/contact/InsertUpdateAccounts"
+      }
+    },
+    {
+      "operation_id": "logged-in-bank-details",
+      "display_name": "Logged In Bank Details",
+      "url_template": "/myaccount/client-management/contact/bank-details",
+      "description": "This API is used for inserting bank details for an existing client",
+      "policy": {
+        "cors": {
+          "method": "PUT",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/clientManagement/contact/BankDetails"
+      }
+    },
+    {
+      "operation_id": "logged-in-insert-contact",
+      "display_name": "Logged In Insert Contact",
+      "url_template": "/myaccount/client-management/contact",
+      "description": "This API is used for inseting a new contact for an existing client",
+      "policy": {
+        "cors": {
+          "method": "PUT",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/clientManagement/contact"
+      }
+    },
+    {
+      "operation_id": "logged-in-add-marketing-consent",
+      "display_name": "Logged In Add Marketing Consent",
+      "url_template": "/myaccount/client-management/contact/add-marketing-consent",
+      "description": "This API submits marketing consent for an existing client",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/clientManagement/contact/AddMarketingConsent"
+      }
+    },
+    {
+      "operation_id": "logged-in-transfer-account",
+      "display_name": "Logged In Transfer Account",
+      "url_template": "/myaccount/client-management/transfer-account",
+      "description": "This API is used for handling all ISA and non-ISA transfers for an existing client",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/clientManagement/TransferAccount"
+      }
+    },
+    {
+      "operation_id": "logged-in-edit-bank-details",
+      "display_name": "Logged In Edit Bank Details",
+      "url_template": "/wrappers/loggedin/edit-bank-details",
+      "description": "Wrapper function used for encrypting the bank details and sending them to the API to be saved for an existing client",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "wrappers_function_app",
+        "rewrite_url": "/logged-in-edit-bank-details"
+      }
+    },
+    {
+      "operation_id": "logged-in-insert-account-isa",
+      "display_name": "Logged In Insert Account Isa",
+      "url_template": "/wrappers/loggedin/insert-account-isa",
+      "description": "Wrapper function used for inserting an ISA account for an existing client",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "wrappers_function_app",
+        "rewrite_url": "/logged-in-insert-account-isa"
+      }
+    },
+    {
+      "operation_id": "logged-in-insert-account-gia",
+      "display_name": "Logged In Insert Account Gia",
+      "url_template": "/wrappers/loggedin/insert-account-gia",
+      "description": "Wrapper function used for inserting a GIA account for an existing client",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "wrappers_function_app",
+        "rewrite_url": "/logged-in-insert-account-gia"
+      }
+    },
+    {
+      "operation_id": "logged-in-insert-account-jisa",
+      "display_name": "Logged In Insert Account Jisa",
+      "url_template": "/wrappers/loggedin/insert-account-jisa",
+      "description": "Wrapper function used for inserting a JISA account for an existing client",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "wrappers_function_app",
+        "rewrite_url": "/logged-in-insert-account-jisa"
+      }
+    },
+    {
+      "operation_id": "logged-in-insert-account-sipp",
+      "display_name": "Logged In Insert Account Sipp",
+      "url_template": "/wrappers/loggedin/insert-account-sipp",
+      "description": "Wrapper function used for inserting an SIPP account for an existing client",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "wrappers_function_app",
+        "rewrite_url": "/logged-in-insert-account-sipp"
+      }
+    },
+    {
+      "operation_id": "transfer-account-isa",
+      "display_name": "Transfer Account Isa",
+      "url_template": "/wrappers/transfer-account-isa",
+      "description": "Transfer ISA Account Wrapper used for making a transfer for an ISA account",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "wrappers_function_app",
+        "rewrite_url": "/transfer-account-isa"
+      }
+    },
+    {
+      "operation_id": "logged-in-transfer-account-isa",
+      "display_name": "Logged In Transfer Account Isa",
+      "url_template": "/wrappers/loggedin/transfer-account-isa",
+      "description": "Transfer ISA Account Wrapper used for making a transfer for an ISA account for an existing client",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "wrappers_function_app",
+        "rewrite_url": "/logged-in-transfer-account-isa"
+      }
+    },
+    {
+      "operation_id": "logged-in-create-contact",
+      "display_name": "Logged In Create Contact",
+      "url_template": "/wrappers/loggedin/create-contact",
+      "description": "Create Contact Wrapper used for the contact creation process for the child of an existing client",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_url": "wrappers_function_app",
+        "rewrite_url": "/logged-in-create-contact"
+      }
+    },
+    {
+      "operation_id": "onboarding-complete-account-setup",
+      "display_name": "Onboarding Complete Account Setup",
+      "url_template": "/myaccount/onboarding/contact/complete-account-setup",
+      "description": "This API is used to complete an account setup for a new client",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin"]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/onboarding/contact/CompleteAccountSetup"
+      }
+    },
+    {
+      "operation_id": "onboarding-insert-update-accounts",
+      "display_name": "Onboarding Insert Update Accounts",
+      "url_template": "/myaccount/onboarding/contact/insert-update-accounts",
+      "description": "This API is used for inserting a new account for a new client",
+      "policy": {
+        "cors": {
+          "method": "PUT",
+          "headers": ["Content-Type", "Origin"]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/onboarding/contact/InsertUpdateAccounts"
+      }
+    },
+    {
+      "operation_id": "onboarding-bank-details",
+      "display_name": "Onboarding Bank Details",
+      "url_template": "/myaccount/onboarding/contact/bank-details",
+      "description": "This API is used for inserting bank details for a new client",
+      "policy": {
+        "cors": {
+          "method": "PUT",
+          "headers": ["Content-Type", "Origin"]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/onboarding/contact/BankDetails"
+      }
+    },
+    {
+      "operation_id": "onboarding-insert-contact",
+      "display_name": "Onboarding Insert Contact",
+      "url_template": "/myaccount/onboarding/contact",
+      "description": "This API is used for inseting a new contact",
+      "policy": {
+        "cors": {
+          "method": "PUT",
+          "headers": ["Content-Type", "Origin"]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/onboarding/contact"
+      }
+    },
+    {
+      "operation_id": "onboarding-add-marketing-consent",
+      "display_name": "Onboarding Add Marketing Consent",
+      "url_template": "/myaccount/onboarding/contact/add-marketing-consent",
+      "description": "This API submits marketing consent for a new client",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin"]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/onboarding/contact/AddMarketingConsent"
+      }
+    },
+    {
+      "operation_id": "onboarding-transfer-account",
+      "display_name": "Onboarding Transfer Account",
+      "url_template": "/myaccount/onboarding/transfer-account",
+      "description": "This API is used for handling all ISA and non-ISA transfers for a new client",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin"]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/onboarding/TransferAccount"
+      }
+    },
+    {
+      "operation_id": "logged-in-send-jisa-transfer-email",
+      "display_name": "Logged In Send JISA Transfer Email",
+      "url_template": "/myaccount/client-management/jisa-transfer-email",
+      "description": "This API is used for sending the JISA transfer email to the logged in client",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/clientManagement/JISAtransferemail"
+      }
+    },
+    {
+      "operation_id": "onboarding-resend-activation-email",
+      "display_name": "Onboarding Resend Activation Email",
+      "url_template": "/myaccount/onboarding/resend-activation-email",
+      "description": "This API is used for resending the account activation email",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin"]
+        },
+        "backend_id": "bestinvest-online-api",
+        "rewrite_url": "/onboarding/ReSendActivationEmail"
+      }
+    },
+    {
+      "operation_id": "myaccount-performance-accounts",
+      "display_name": "Myaccount performance per account and aggregated for multiple accounts",
+      "url_template": "/myaccount/performance-accounts",
+      "description": "This lets the user to get performance per account and aggregated for multiple accounts",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/performance-accounts"
+      }
+    },
+    {
+      "operation_id": "identity-forgot-login",
+      "display_name": "Forgot log in details",
+      "url_template": "/forgot-login",
+      "description": "This API is used to post key credentials to receive reset login email",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin"]
+        },
+        "backend_id": "bestinvest-identity-api"
+      }
+    },
+    {
+      "operation_id": "identity-reset-login-step-1",
+      "display_name": "Reset log in details step 1",
+      "url_template": "/reset-login-step-1",
+      "description": "This API is used to post user info to verify and continue reset login journey",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin"]
+        },
+        "backend_id": "bestinvest-identity-api"
+      }
+    },
+    {
+      "operation_id": "identity-reset-login-step-2",
+      "display_name": "Reset log in details step 2",
+      "url_template": "/reset-login-step-2",
+      "description": "This API is used to post the new login details",
+      "policy": {
+        "cors": {
+          "method": "POST",
+          "headers": ["Content-Type", "Origin"]
+        },
+        "backend_id": "bestinvest-identity-api"
+      }
+    },
+    {
+      "operation_id": "return-accounts",
+      "display_name": "Return For Multiple Accounts",
+      "url_template": "/myaccount/return-accounts",
+      "description": "This API is used to get the returns for multiple accounts and aggregated",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/return-accounts"
+      }
+    },
+    {
+      "operation_id": "monthly-savings-accounts",
+      "display_name": "Monthly Savings For Multiple Accounts",
+      "url_template": "/myaccount/monthly-savings",
+      "description": "This API is used to get the monthly savings for multiple accounts",
+      "policy": {
+        "cors": {
+          "method": "GET",
+          "headers": ["Content-Type", "Origin", "Authorization"]
+        },
+        "backend_id": "bestinvest-myaccounts-api",
+        "rewrite_url": "/accounts/monthly-savings"
+      }
+    }
+  ]
+}
